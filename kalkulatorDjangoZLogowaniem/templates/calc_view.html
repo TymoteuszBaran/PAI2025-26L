@@ -1,0 +1,99 @@
+{% load static %}
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Kalkulator Rat</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="{% static 'assets/css/main.css' %}" />
+</head>
+<body class="no-sidebar is-preload">
+    <div id="page-wrapper">
+
+        <section id="header" class="wrapper">
+            <div id="logo">
+                <h1><a href="{% url 'calc' %}">Kalkulator Rat</a></h1>
+                <p>Zalogowany jako: {{ user.username }} | <a href="{% url 'logout' %}">Wyloguj</a></p>
+            </div>
+        </section>
+
+        <div id="main" class="wrapper style2">
+            <div class="title">Formularz</div>
+            <div class="container">
+                <div id="content">
+
+                    <article class="box post">
+                        <header class="style1">
+                            <h2>Oblicz swoją ratę</h2>
+                            <p>Wypełnij poniższe pola, aby poznać miesięczny koszt kredytu.</p>
+                        </header>
+
+                        <form action="{% url 'calc' %}" method="post">
+                            {% csrf_token %} <div class="row gtr-50">
+                                <div class="col-12">
+                                    <label for="id_kwota">Kwota kredytu:</label>
+                                    <input type="text" name="kwota" id="id_kwota" value="{{ form.kwota.value|default:'' }}">
+                                </div>
+                                <div class="col-12">
+                                    <label for="id_lata">Liczba lat:</label>
+                                    <input type="text" name="lata" id="id_lata" value="{{ form.lata.value|default:'' }}">
+                                </div>
+                                <div class="col-12">
+                                    <label for="id_opro">Oprocentowanie (%):</label>
+                                    <input type="text" name="opro" id="id_opro" value="{{ form.opro.value|default:'' }}">
+                                </div>
+                                <div class="col-12">
+                                    <ul class="actions">
+                                        <li><input type="submit" value="Oblicz" class="button style1" /></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </form>
+
+                        {% if form.errors %}
+                            <div style="margin: 20px 0; padding: 10px; background: #ffeeee; border: 1px solid #ff0000; color: #cc0000;">
+                                <strong>Proszę poprawić następujące błędy:</strong>
+                                <ul>
+                                {% for field, errors in form.errors.items %}
+                                    {% for error in errors %}
+                                        <li>{{ error }}</li>
+                                    {% endfor %}
+                                {% endfor %}
+                                </ul>
+                            </div>
+                        {% endif %}
+
+                        {% if result %}
+                            <div id="result" style="margin-top: 30px;">
+                                <header class="style1">
+                                    <h1>Rata miesięczna: <span style="color: #2e3436;">{{ result }} zł</span></h1>
+                                </header>
+                            </div>
+                        {% endif %}
+
+                    </article>
+
+                </div>
+            </div>
+        </div>
+
+        <section id="footer" class="wrapper">
+            <div id="copyright">
+                <ul>
+                    <li>&copy; Kalkulator Rat. Wszystkie prawa zastrzeżone.</li>
+                    <li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+                </ul>
+            </div>
+        </section>
+
+    </div>
+
+    <script src="{% static 'assets/js/jquery.min.js' %}"></script>
+    <script src="{% static 'assets/js/jquery.dropotron.min.js' %}"></script>
+    <script src="{% static 'assets/js/browser.min.js' %}"></script>
+    <script src="{% static 'assets/js/breakpoints.min.js' %}"></script>
+    <script src="{% static 'assets/js/util.js' %}"></script>
+    <script src="{% static 'assets/js/main.js' %}"></script>
+
+</body>
+</html>

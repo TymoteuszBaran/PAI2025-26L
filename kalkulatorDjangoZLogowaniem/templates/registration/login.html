@@ -1,0 +1,80 @@
+{% load static %}
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Logowanie - Kalkulator Rat</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="{% static 'assets/css/main.css' %}" />
+</head>
+<body class="no-sidebar is-preload">
+    <div id="page-wrapper">
+
+        <section id="header" class="wrapper">
+            <div id="logo">
+                <h1><a href="{% url 'login' %}">Kalkulator Rat</a></h1>
+            </div>
+        </section>
+
+        <div id="main" class="wrapper style2">
+            <div class="title">Logowanie</div>
+            <div class="container">
+                <div id="content">
+
+                    <article class="box post">
+                        <header class="style1">
+                            <h2>Zaloguj się</h2>
+                            <p>Wprowadź swoje dane logowania, aby uzyskać dostęp do kalkulatora.</p>
+                        </header>
+
+                        {% if form.errors %}
+                            <div style="margin: 20px 0; padding: 10px; background: #ffeeee; border: 1px solid #ff0000; color: #cc0000;">
+                                <strong>Nieprawidłowa nazwa użytkownika lub hasło.</strong>
+                            </div>
+                        {% endif %}
+
+                        <form method="post">
+                            {% csrf_token %}
+                            <div class="row gtr-50">
+                                <div class="col-12">
+                                    <label for="{{ form.username.id_for_label }}">Nazwa użytkownika:</label>
+                                    {{ form.username }}
+                                </div>
+                                <div class="col-12">
+                                    <label for="{{ form.password.id_for_label }}">Hasło:</label>
+                                    {{ form.password }}
+                                </div>
+                                <div class="col-12">
+                                    <ul class="actions">
+                                        <li><input type="submit" value="Zaloguj" class="button style1" /></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </form>
+
+                    </article>
+
+                </div>
+            </div>
+        </div>
+
+        <section id="footer" class="wrapper">
+            <div id="copyright">
+                <ul>
+                    <li>&copy; Kalkulator Rat. Wszystkie prawa zastrzeżone.</li>
+                    <li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+                </ul>
+            </div>
+        </section>
+
+    </div>
+
+    <script src="{% static 'assets/js/jquery.min.js' %}"></script>
+    <script src="{% static 'assets/js/jquery.dropotron.min.js' %}"></script>
+    <script src="{% static 'assets/js/browser.min.js' %}"></script>
+    <script src="{% static 'assets/js/breakpoints.min.js' %}"></script>
+    <script src="{% static 'assets/js/util.js' %}"></script>
+    <script src="{% static 'assets/js/main.js' %}"></script>
+
+</body>
+</html>
